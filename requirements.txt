@@ -1,0 +1,5 @@
+black==23.7.0
+dearpygui==1.9.1
+flake8==6.1.0
+httpx==0.24.1
+pycryptodome==3.18.0

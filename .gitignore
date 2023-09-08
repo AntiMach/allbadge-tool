@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+decrypted/
+encrypted/
+boot9.bin
