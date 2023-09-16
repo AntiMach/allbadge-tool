@@ -1,5 +1,7 @@
 .venv/
 __pycache__/
-decrypted/
-encrypted/
+build/
+dist/
+data/
+*.spec
 boot9.bin
