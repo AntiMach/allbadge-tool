@@ -13,7 +13,7 @@ from allbadge_tool.ctr.allbadge import allbadge_factory
 from allbadge_tool.misc.beep import beep
 from allbadge_tool.misc.asyncdl import AsyncDownloader
 from allbadge_tool.misc.tkextra import CheckboxButtons, FileSelect
-from allbadge_tool.misc.const import BASE_DIR, VERSIONS_130, VERSIONS_131, Version
+from allbadge_tool.misc.const import BASE_DIR, VERSIONS_130, VERSIONS_131, VERSIONS_PC, Version
 
 
 class Logic(ABC):
@@ -67,6 +67,8 @@ class Logic(ABC):
         async with AsyncDownloader() as downloader:
             downloader.set_progress_callback(self.download_progress)
             for version in self.versions:
+                if version.url is None:
+                    continue
                 file = self.data_path / version.dat
                 if not file.is_file():
                     downloader.add_entry(version.url, file)
@@ -80,6 +82,9 @@ class Logic(ABC):
         boss_key = self.boot9.get_keys(0x38).normal_key
 
         for i, version in enumerate(self.versions, 1):
+            if version.dat is None:
+                continue
+
             infile = self.data_path / version.dat
             outfile = self.data_path / version.sarc
 
@@ -131,10 +136,12 @@ class Window(tk.Tk, Logic):
         self.version_label = tk.Label(self.version_frame, text="Select versions")
         self.version_130_selection = CheckboxButtons(self.version_frame, options=VERSIONS_130)
         self.version_131_selection = CheckboxButtons(self.version_frame, options=VERSIONS_131)
+        self.version_pc_selection = CheckboxButtons(self.version_frame, options=VERSIONS_PC)
 
         self.version_label.grid(row=0, column=0, rowspan=2, sticky="nsew")
         self.version_130_selection.grid(row=0, column=1, sticky="ew")
         self.version_131_selection.grid(row=1, column=1, sticky="ew")
+        self.version_pc_selection.grid(row=2, column=1, sticky="ew")
 
         self.boot9_selection = FileSelect(self, title="Select boot9 file", is_dir=False, default=BASE_DIR / "boot9.bin")
         self.data_selection = FileSelect(self, title="Select data folder", is_dir=True, default=BASE_DIR / "data")
@@ -158,7 +165,11 @@ class Window(tk.Tk, Logic):
 
     @property
     def versions(self) -> list[Version]:
-        return [*self.version_130_selection.value(), *self.version_131_selection.value()]
+        return [
+            *self.version_130_selection.value(),
+            *self.version_131_selection.value(),
+            *self.version_pc_selection.value(),
+        ]
 
     @property
     def boot9_path(self) -> Path:
@@ -181,12 +192,14 @@ class Window(tk.Tk, Logic):
     def begin(self):
         self.version_130_selection.disable()
         self.version_131_selection.disable()
+        self.version_pc_selection.disable()
         self.boot9_selection.disable()
         self.data_selection.disable()
         self.begin_button.config(state="disabled")
         super().begin()
         self.version_130_selection.enable()
         self.version_131_selection.enable()
+        self.version_pc_selection.enable()
         self.boot9_selection.enable()
         self.data_selection.enable()
         self.begin_button.config(state="normal")

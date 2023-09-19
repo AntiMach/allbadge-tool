@@ -1,0 +1,63 @@
+# GodMode9 "Badge Extract Tool"
+# This allows for extraction of badge data from multiple locations.
+# author: AntiMach
+
+set PREVIEW_MODE "Nintendo Badge Arcade Update pc.sarc Extractor\nby AntiMach"
+
+@Start
+imgumount -o -s
+labelsel "Choose an option." Select_*
+
+@Select_Extract_From_Installed_Updates
+set EXTRACTED FALSE
+
+if imgmount A:/title/0004000e/00153600/content/00000000.app
+    cp -k G:/romfs/region_EUR/common/sharc/pc.sarc "$[GM9OUT]/pc_EUR.sarc"
+    echo "Extracted pc_EUR.sarc"
+    set EXTRACTED TRUE
+end
+
+if imgmount A:/title/0004000e/00134600/content/00000006.app
+    cp -k G:/romfs/region_JPN/sharc/pc.sarc "$[GM9OUT]/pc_JPN.sarc"
+    echo "Extracted pc_JPN.sarc"
+    set EXTRACTED TRUE
+end
+
+if imgmount A:/title/0004000e/00153500/content/00000000.app
+    cp G:/romfs/region_USA/sharc/pc.sarc "$[GM9OUT]/pc_USA.sarc"
+    echo "Extracted pc_USA.sarc"
+    set EXTRACTED TRUE
+end
+
+if chk $[EXTRACTED] FALSE
+    echo "No Nintendo Badge Arcade update titles are installed..."
+end
+goto Start
+
+@Select_Extract_From_CIA_Update
+filesel -d "Select a Nintendo Badge Arcade CIA" "$[GM9OUT]/*.cia" BADGECIA
+
+if not imgmount "$[BADGECIA]"
+    echo "Unable to open provided file (perhaps due to corruption?)"
+    goto Start
+end
+
+if cp -k G:/0000.00000000/romfs/region_EUR/common/sharc/pc.sarc "$[GM9OUT]/pc_EUR.sarc"
+    echo "Extracted pc_EUR.sarc"
+    goto Start
+end
+
+if cp -k G:/0000.00000000/romfs/region_JPN/sharc/pc.sarc "$[GM9OUT]/pc_JPN.sarc"
+    echo "Extracted pc_JPN.sarc"
+    goto Start
+end
+
+if cp -k G:/0000.00000000/romfs/region_USA/sharc/pc.sarc "$[GM9OUT]/pc_USA.sarc"
+    echo "Extracted pc_USA.sarc"
+    goto Start
+end
+
+echo "Could not find any pc.sarc (perhaps due to a wrong CIA?)"
+goto Start
+
+@Select_Exit

@@ -14,6 +14,14 @@ Before starting, you're going to need a few things:
 - [Advanced Badge Editor](https://github.com/AntiMach/advanced-badge-editor/releases/latest)
 - A way to read your SD card
 
+## Assumptions
+
+This guide assumes the following:
+
+- You followed the [3ds.hacks.guide](https://3ds.hacks.guide/) step by step to mod your 3ds, or update your modded 3ds.
+- You know some basic understanding of transferring files from your 3DS's SD card to your PC and vice versa.
+- Your 3DS has a Nintendo Network account associated (despite it possibly not being needed).
+
 ## Getting the arm9 bootrom
 
 This will be needed for the allbadge tool, as it is required for decrypting some files.
@@ -22,7 +30,7 @@ This will be needed for the allbadge tool, as it is required for decrypting some
 - Move to `[M:] MEMORY VIRTUAL` and press `A`
 - Move to `boot9.bin` and press `A`
 - Move to `Copy to 0:/gm9/out` and press `A`
-- While holding `R`, press `Start`
+- While holding `R`, press `Start` to turn your 3DS off
 
 Your `boot9.bin` file should now be on your SD card inside of `/gm9/out`.
 
@@ -40,6 +48,24 @@ Having obtained the arm9 bootrom, you can now use the **Allbadge Tool**.
 - You may want to extract the folders for the sets you want
 
 With this step done, we now have all the badges.
+
+<details>
+  <summary><b>EXTRA: Getting badge data from the Nintendo Badge Arcade updates</b></summary>
+
+  This is not usually needed, but may include badges that are otherwise missing on the other files.
+  
+  - Move [this GodMode9 script](https://github.com/AntiMach/allbadge-tool/releases/tag/gm9script) to the `/gm9/scripts` folder on your SD card
+  - Boot your 3DS holding `Start`. This should open **GodMode9**
+  - Press the `HOME` button
+  - Nagivate to `Scripts...` > `BadgeExtractTool`
+  - Select the desired options from here
+  - Select `Exit` and press `A` once you're done
+  - While holding `R`, press `Start` to turn your 3DS off
+  - Take any `pc_REGION.sarc` file from the `/gm9/out` folder on your SD card and move them to the `data` folder of the **Allbadge Tool**
+  - Running the **Allbadge Tool**, you can now make use of the `pc REGION` options to extract their contents
+
+  With this step done, we now have ALL the badges (specially if you extracted the Japanese sarc).
+</details>
 
 ## Installing Simple Badge Injector and knowing your NNID
 
