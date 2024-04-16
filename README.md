@@ -74,3 +74,13 @@ Store every file based on their hash, and point to their data in a database, for
 ### Result
 
 From a single `boot9.bin` to zip archives, this process obtains official `.prb` and `.cab` files, badges and collections respectively.
+
+
+# Building the executable (Windows)
+
+```pwsh
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+pyinstaller executable.py --noconsole
+```
