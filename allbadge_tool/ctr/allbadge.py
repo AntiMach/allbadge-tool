@@ -7,7 +7,7 @@ def read_string(data: bytes):
     return data.split(b"\0", 1)[0].decode("utf-8")
 
 
-def allbadge_factory(entry: SFATEntry):
+def badge_element_factory(entry: SFATEntry):
     if entry.file_path.suffix == ".prb":
         return BadgePrize.unpack(entry.file_data)
 

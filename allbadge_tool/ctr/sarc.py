@@ -2,14 +2,35 @@
 Original code by SciresM @ https://github.com/SciresM/BadgeArcadeTool/blob/master/BadgeArcadeTool/SARC.cs
 """
 
+from enum import Enum
 import struct
 import hashlib
 from io import BytesIO
 from pathlib import Path
 from dataclasses import dataclass, field
-from typing import Iterator
+from typing import Any, Iterator, Self
 
 from allbadge_tool.ctr.yaz0 import yaz0_decompress
+
+
+class ByteOrder(Enum):
+    BIG = b"\xFE\xFF", ">"
+    LITTLE = b"\xFF\xFE", "<"
+
+    @classmethod
+    def from_mark(cls, mark: bytes) -> Self:
+        for order in cls:
+            if mark == order.mark:
+                return order
+
+        raise ValueError(f"Unknown byte order mark '{mark.hex()}'")
+
+    @property
+    def mark(self) -> bytes:
+        return self.value[0]
+
+    def unpack(self, fmt: str, value: bytes) -> tuple[Any, ...]:
+        return struct.unpack(f"{self.value[1]}{fmt}", value)
 
 
 @dataclass(slots=True)
@@ -20,41 +41,45 @@ class SFATNode:
     file_data_end: int
 
     @classmethod
-    def unpack(cls, fs: BytesIO):
-        return cls(*struct.unpack("<IIII", fs.read(16)))
+    def unpack(cls, fs: BytesIO, byte_order: ByteOrder):
+        return cls(*byte_order.unpack("IIII", fs.read(16)))
 
 
 @dataclass(slots=True)
 class SFAT:
+    magic: bytes
     header_size: int
     entry_count: int
     hash_mult: int
-    nodes: list[SFATNode] = field(default_factory=list, repr=False)
+    nodes: list[SFATNode] = field(repr=False)
 
     @classmethod
-    def unpack(cls, fs: BytesIO):
-        if fs.read(4) != b"SFAT":
+    def unpack(cls, fs: BytesIO, byte_order: ByteOrder):
+        magic, header_size, entry_count, hash_mult = byte_order.unpack("4sHHI", fs.read(12))
+
+        if magic != b"SFAT":
             raise AttributeError("Invalid SFAT header")
 
-        self = cls(*struct.unpack("<HHI", fs.read(8)))
+        nodes = [SFATNode.unpack(fs, byte_order) for _ in range(entry_count)]
 
-        self.nodes.extend(SFATNode.unpack(fs) for _ in range(self.entry_count))
-
-        return self
+        return cls(magic, header_size, entry_count, hash_mult, nodes)
 
 
 @dataclass(slots=True)
 class SFNT:
+    magic: bytes
     header_size: int
     unknown: int
     string_offset: int
 
     @classmethod
-    def unpack(cls, fs: BytesIO):
-        if fs.read(4) != b"SFNT":
+    def unpack(cls, fs: BytesIO, byte_order: ByteOrder):
+        magic, header_size, unknown = byte_order.unpack("4sHH", fs.read(8))
+
+        if magic != b"SFNT":
             raise AttributeError("Invalid SFNT header")
 
-        return cls(*struct.unpack("<HH", fs.read(4)), fs.tell())
+        return cls(magic, header_size, unknown, fs.tell())
 
 
 @dataclass(slots=True, frozen=True)
@@ -77,42 +102,44 @@ class SFATEntry:
 
 @dataclass(slots=True)
 class SARC:
-    data: bytes = field(repr=False)
-    header_size: int = 0x14
-    endianness: int = 0
-    file_size: int = 0
-    data_offset: int = 0
-    unknown: int = 0
-    sfat: SFAT = None
-    sfnt: SFNT = None
+    data: bytes
+    magic: bytes
+    header_size: int
+    byte_order: ByteOrder
+    file_size: int
+    data_offset: int
+    unknown: int
+    sfat: SFAT
+    sfnt: SFNT
 
     @classmethod
     def unpack(cls, data: bytes):
-        self = cls(data)
+        with BytesIO(data) as fs:
+            magic, header_size, byte_order = struct.unpack("4s2s2s", fs.read(8))
 
-        with BytesIO(self.data) as fs:
-            if fs.read(4) != b"SARC":
+            if magic != b"SARC":
                 raise AttributeError("Invalid SARC header")
 
-            (
-                self.header_size,
-                self.endianness,
-                self.file_size,
-                self.data_offset,
-                self.unknown,
-            ) = struct.unpack("<HHIII", fs.read(16))
+            byte_order = ByteOrder.from_mark(byte_order)
 
-            self.sfat = SFAT.unpack(fs)
-            self.sfnt = SFNT.unpack(fs)
+            (header_size,) = byte_order.unpack("H", header_size)
+            file_size, data_offset, unknown = byte_order.unpack("III", fs.read(12))
 
-        if self.file_size != len(self.data):
-            raise AttributeError("Specified file is not valid (incorrect file size)")
+            if file_size != len(data):
+                raise AttributeError("Specified file is not valid (incorrect file size)")
 
-        return self
+            sfat = SFAT.unpack(fs, byte_order)
+            sfnt = SFNT.unpack(fs, byte_order)
+
+        return cls(data, magic, header_size, byte_order, file_size, data_offset, unknown, sfat, sfnt)
 
     @property
     def nodes(self) -> list[SFATNode]:
         return self.sfat.nodes
+
+    @property
+    def node_count(self) -> int:
+        return self.sfat.entry_count
 
     @property
     def entries(self) -> Iterator[SFATEntry]:

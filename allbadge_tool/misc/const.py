@@ -8,8 +8,8 @@ BASE_DIR = Path(".").resolve()
 class Version:
     BASE_FORMAT = "allbadge_v{version}_{name}.{ext}"
     name: str
-    version: str | None
-    value: str | None
+    version: str | None = None
+    value: str | None = None
 
     @property
     def url(self) -> str | None:

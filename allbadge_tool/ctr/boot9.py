@@ -5,9 +5,9 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True, slots=True)
 class Keys:
-    key_x: str | None = None
-    key_y: str | None = None
-    normal_key: str | None = None
+    key_x: bytes | None = None
+    key_y: bytes | None = None
+    normal_key: bytes | None = None
 
 
 @dataclass
