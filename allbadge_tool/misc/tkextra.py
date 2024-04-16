@@ -85,7 +85,8 @@ class ScrolledTextLog(ttk.Frame):
         self.rowconfigure(0, weight=1)
 
         self.canvas = tk.Canvas(self, background="#ddd")
-        self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.scrollbar_y = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.scrollbar_x = ttk.Scrollbar(self, orient="horizontal", command=self.canvas.xview)
 
         self.canvas.bind("<MouseWheel>", self.on_mousewheel)
         self.canvas.bind("<Button-4>", self.on_mousewheel)
@@ -95,13 +96,14 @@ class ScrolledTextLog(ttk.Frame):
         self.scroll_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
         self.canvas.create_window((0, 0), window=self.scroll_frame, anchor="nw")
-        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        self.canvas.configure(yscrollcommand=self.scrollbar_y.set, xscrollcommand=self.scrollbar_x.set)
 
+        self.scrollbar_y.pack(side="right", fill="y")
+        self.scrollbar_x.pack(side="bottom", fill="x")
         self.canvas.pack(side="left", fill="both", expand=True)
-        self.scrollbar.pack(side="right", fill="y")
 
         self.label = ttk.Label(self.scroll_frame, background="#ddd")
-        self.label.pack(ipadx=20)
+        self.label.pack()
 
     def on_mousewheel(self, event):
         if self.canvas.yview() != (0.0, 1.0):

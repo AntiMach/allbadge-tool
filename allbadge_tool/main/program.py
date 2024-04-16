@@ -95,7 +95,7 @@ class Program(ABC):
     async def download_files(self):
         self.download_progress(0)
 
-        self.log_message("Downloading files")
+        self.log_message("1. Downloading files")
 
         async with AsyncDownloader() as downloader:
             downloader.set_progress_callback(self.download_progress)
@@ -123,7 +123,7 @@ class Program(ABC):
 
     def decrypt_files(self):
         self.decrypt_progress(0)
-        self.log_message("Decrypting files")
+        self.log_message("2. Decrypting files")
 
         for i, version in enumerate(self.versions, 1):
             try:
@@ -153,11 +153,13 @@ class Program(ABC):
 
     def repack_files(self):
         self.repack_progress(0)
-        self.log_message("Repacking files")
+        self.log_message("3. Repacking files")
 
         for i, version in enumerate(self.versions):
             try:
                 self.repack_file(i, version)
+            except FileNotFoundError as e:
+                self.file_done(version.sarc, e)
             except Exception as e:
                 self.file_done(version.zip, e)
 
@@ -192,10 +194,12 @@ class Program(ABC):
         self.set_progress("Repacking", file_ratio / len(self.versions))
 
     def file_done(self, out_name: str, error: Exception | None = None, on_disk: bool = False):
-        if error:
-            self.log_message(f"❌ {out_name}")
-            self.log_message(f"Reason: {error}")
+        if isinstance(error, FileNotFoundError):
+            self.log_message(f"\t❓ {out_name}")
+        elif error:
+            self.log_message(f"\t❌ {out_name}")
+            self.log_message(f"\tReason: {error}")
         elif on_disk:
-            self.log_message(f"💾 {out_name}")
+            self.log_message(f"\t💾 {out_name}")
         else:
-            self.log_message(f"✔ {out_name}")
+            self.log_message(f"\t✔ {out_name}")
