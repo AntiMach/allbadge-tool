@@ -1,23 +1,15 @@
 from pathlib import Path
 from dataclasses import dataclass
+from typing import Any, ClassVar
 
 BASE_DIR = Path(".").resolve()
 
 
-@dataclass
 class Version:
-    BASE_FORMAT = "allbadge_v{version}_{name}.{ext}"
-    name: str
-    version: str | None = None
-    value: str | None = None
+    BASE_FORMAT: ClassVar[str]
 
-    @property
-    def url(self) -> str | None:
-        return f"https://npdl.cdn.nintendowifi.net/p01/nsa/{self.value}/data/allbadge_v{self.version}.dat?tm=2"
-
-    @property
-    def dat(self) -> str | None:
-        return self.BASE_FORMAT.format(version=self.version, name=self.name, ext="dat")
+    name: Any
+    version: Any
 
     @property
     def sarc(self) -> str:
@@ -28,32 +20,53 @@ class Version:
         return self.BASE_FORMAT.format(version=self.version, name=self.name, ext="zip")
 
 
+@dataclass
+class CDNVersion(Version):
+    BASE_FORMAT = "allbadge{version}_{name}.{ext}"
+
+    name: str
+    version: str
+    value: str
+
+    @property
+    def url(self) -> str:
+        return f"https://npdl.cdn.nintendowifi.net/p01/nsa/{self.value}/data/allbadge{self.version}.dat?tm=2"
+
+    @property
+    def dat(self) -> str:
+        return self.BASE_FORMAT.format(version=self.version, name=self.name, ext="dat")
+
+
+@dataclass
 class PCVersion(Version):
     BASE_FORMAT = "pc_{name}.{ext}"
 
-    @property
-    def url(self) -> None:
-        return None
+    name: str
+    version: None = None
 
-    @property
-    def dat(self) -> None:
-        return None
 
+USA_REGION_CODE = "OvbmGLZ9senvgV3K"
+EUR_REGION_CODE = "J6la9Kj8iqTvAPOq"
+JPN_REGION_CODE = "j0ITmVqVgfUxe0O9"
+
+VERSIONS_100 = {
+    "JPN v100": CDNVersion("JPN", "", JPN_REGION_CODE),
+}
 
 VERSIONS_130 = {
-    "USA v130": Version("USA", 130, "OvbmGLZ9senvgV3K"),
-    "EUR v130": Version("EUR", 130, "J6la9Kj8iqTvAPOq"),
-    "JPN v130": Version("JPN", 130, "j0ITmVqVgfUxe0O9"),
+    "USA v130": CDNVersion("USA", "_v130", USA_REGION_CODE),
+    "EUR v130": CDNVersion("EUR", "_v130", EUR_REGION_CODE),
+    "JPN v130": CDNVersion("JPN", "_v130", JPN_REGION_CODE),
 }
 
 VERSIONS_131 = {
-    "USA v131": Version("USA", 131, "OvbmGLZ9senvgV3K"),
-    "EUR v131": Version("EUR", 131, "J6la9Kj8iqTvAPOq"),
-    "JPN v131": Version("JPN", 131, "j0ITmVqVgfUxe0O9"),
+    "USA v131": CDNVersion("USA", "_v131", USA_REGION_CODE),
+    "EUR v131": CDNVersion("EUR", "_v131", EUR_REGION_CODE),
+    "JPN v131": CDNVersion("JPN", "_v131", JPN_REGION_CODE),
 }
 
 VERSIONS_PC = {
-    "pc USA": PCVersion("USA", None, None),
-    "pc EUR": PCVersion("EUR", None, None),
-    "pc JPN": PCVersion("JPN", None, None),
+    "pc USA": PCVersion("USA"),
+    "pc EUR": PCVersion("EUR"),
+    "pc JPN": PCVersion("JPN"),
 }

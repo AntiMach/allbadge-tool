@@ -4,31 +4,35 @@ from pathlib import Path
 
 from allbadge_tool.main.program import Program
 from allbadge_tool.misc.tkextra import CheckboxButtons, FileSelect, ScrolledTextLog
-from allbadge_tool.misc.const import BASE_DIR, VERSIONS_130, VERSIONS_131, VERSIONS_PC, Version
+from allbadge_tool.misc.const import BASE_DIR, VERSIONS_100, VERSIONS_130, VERSIONS_131, VERSIONS_PC, Version
 
 
 class VersionFrame(ttk.Frame):
     def __init__(self, master):
         self.label = ttk.Label(master, text="Select versions", anchor="center")
+        self.selection_100 = CheckboxButtons(master, options=VERSIONS_100)
         self.selection_130 = CheckboxButtons(master, options=VERSIONS_130)
         self.selection_131 = CheckboxButtons(master, options=VERSIONS_131)
         self.selection_pc = CheckboxButtons(master, options=VERSIONS_PC)
 
     def grid(self, row: int, column: int, **kwargs) -> int:
-        self.label.grid(row=row, column=column, rowspan=3, **kwargs)
-        self.selection_130.grid(row=row, column=column + 1, **kwargs)
-        self.selection_131.grid(row=row + 1, column=column + 1, **kwargs)
-        self.selection_pc.grid(row=row + 2, column=column + 1, **kwargs)
-        return row + 3
+        self.label.grid(row=row, column=column, rowspan=4, **kwargs)
+        self.selection_100.grid(row=row, column=column + 1, **kwargs)
+        self.selection_130.grid(row=row + 1, column=column + 1, **kwargs)
+        self.selection_131.grid(row=row + 2, column=column + 1, **kwargs)
+        self.selection_pc.grid(row=row + 3, column=column + 1, **kwargs)
+        return row + 4
 
     def disable(self):
         self.selection_130.disable()
         self.selection_131.disable()
+        self.selection_100.disable()
         self.selection_pc.disable()
 
     def enable(self):
         self.selection_130.enable()
         self.selection_131.enable()
+        self.selection_100.enable()
         self.selection_pc.enable()
 
     @property
@@ -36,6 +40,7 @@ class VersionFrame(ttk.Frame):
         return [
             *self.selection_130.value(),
             *self.selection_131.value(),
+            *self.selection_100.value(),
             *self.selection_pc.value(),
         ]
 

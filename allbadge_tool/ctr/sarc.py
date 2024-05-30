@@ -2,13 +2,13 @@
 Original code by SciresM @ https://github.com/SciresM/BadgeArcadeTool/blob/master/BadgeArcadeTool/SARC.cs
 """
 
-from enum import Enum
 import struct
 import hashlib
+from enum import Enum
 from io import BytesIO
 from pathlib import Path
-from dataclasses import dataclass, field
 from typing import Any, Iterator, Self
+from dataclasses import dataclass, field
 
 from allbadge_tool.ctr.yaz0 import yaz0_decompress
 
@@ -169,4 +169,4 @@ class SARC:
 
     def get_decompressed_data(self, node: SFATNode) -> bytearray:
         data = self.get_file_data(node)
-        return yaz0_decompress(data) if data[:4] == b"Yaz0" else data
+        return yaz0_decompress(data) if data[:4] == b"Yaz0" else bytearray(data)

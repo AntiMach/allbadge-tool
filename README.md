@@ -31,7 +31,7 @@ In other words, the BOSS encryption/decryption key is at `0xDBD0`, with size of 
 
 The files can be obtained through the following link:
 
-`https://npdl.cdn.nintendowifi.net/p01/nsa/{REGION_CODE}/data/allbadge_v{VERSION}.dat?tm=2`
+`https://npdl.cdn.nintendowifi.net/p01/nsa/{REGION_CODE}/data/allbadge{VERSION}.dat?tm=2`
 
 Changing `REGION_CODE` with any of the following values:
 
@@ -39,7 +39,7 @@ Changing `REGION_CODE` with any of the following values:
 - EUR: `J6la9Kj8iqTvAPOq`
 - USA: `OvbmGLZ9senvgV3K`
 
-And the `VERSION` with either `130` or `131`
+And the `VERSION` with either `_v130`, `_v131` or nothing.
 
 The files are [BOSS encrypted containers](https://www.3dbrew.org/wiki/SpotPass#Content_Container).
 
@@ -76,11 +76,16 @@ Store every file based on their hash, and point to their data in a database, for
 From a single `boot9.bin` to zip archives, this process obtains official `.prb` and `.cab` files, badges and collections respectively.
 
 
-# Building the executable (Windows)
+# Building the executable
 
+Requirements:
+- python, at least 3.12.X
+
+
+Powershell:
 ```pwsh
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-pyinstaller executable.py --noconsole
+pyinstaller executable.py --noconsole --onefile
 ```

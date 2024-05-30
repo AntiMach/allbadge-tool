@@ -7,7 +7,7 @@ from httpx import AsyncClient
 class AsyncDownloader:
     _client: AsyncClient
     _entries: list[tuple[str, Path]]
-    _done_callback: Callable[[str], None]
+    _done_callback: Callable[[Path, BaseException | None], None]
     _progress_callback: Callable[[float], None]
 
     def __init__(self):

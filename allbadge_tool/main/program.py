@@ -9,7 +9,7 @@ from allbadge_tool.ctr.boot9 import Boot9
 from allbadge_tool.ctr.allbadge import badge_element_factory
 
 from allbadge_tool.misc.beep import beep
-from allbadge_tool.misc.const import Version
+from allbadge_tool.misc.const import CDNVersion, PCVersion, Version
 from allbadge_tool.misc.asyncdl import AsyncDownloader
 
 
@@ -48,10 +48,12 @@ class Program(ABC):
         ...
 
     @abstractmethod
-    def start(self): ...
+    def start(self):
+        ...
 
     @abstractmethod
-    def end(self): ...
+    def end(self):
+        ...
 
     def begin(self):
         """
@@ -80,7 +82,9 @@ class Program(ABC):
 
     def _begin(self):
         self.boot9 = Boot9.unpack(self.boot9_path.read_bytes())
-        self.boss_key = self.boot9.get_keys(0x38).normal_key
+        boss_key = self.boot9.get_keys(0x38).normal_key
+        assert boss_key
+        self.boss_key = boss_key
 
         if not self.versions:
             raise Exception("No versions selected")
@@ -102,11 +106,13 @@ class Program(ABC):
             downloader.set_done_callback(self.download_done)
 
             for version in self.versions:
-                downloader.add_entry(*self.download_entry(version))
+                downloader.add_entry(*self.download_entry(version))  # type: ignore
 
     def download_entry(self, version: Version) -> tuple[str, Path] | tuple[()]:
-        if version.url is None or version.dat is None:
+        if isinstance(version, PCVersion):
             return ()
+
+        assert isinstance(version, CDNVersion)
 
         file = self.data_path / version.dat
 
@@ -132,8 +138,10 @@ class Program(ABC):
                 self.file_done(version.sarc, e)
 
     def decrypt_file(self, i: int, version: Version):
-        if version.dat is None:
-            return
+        if isinstance(version, PCVersion):
+            return ()
+
+        assert isinstance(version, CDNVersion)
 
         in_file = self.data_path / version.dat
         out_file = self.data_path / version.sarc

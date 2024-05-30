@@ -1,14 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
 from pathlib import Path
+from typing import Mapping
 from tkinter import filedialog
-from typing import Generic, Mapping, TypeVar
 
 
-T = TypeVar("T")
+class CheckboxButtons[T](ttk.Frame):
+    _buttons: list[ttk.Checkbutton]
 
-
-class CheckboxButtons(ttk.Frame, Generic[T]):
     def __init__(self, master, options: Mapping[str, T], **kwargs):
         super().__init__(master, **kwargs)
 
@@ -18,20 +17,23 @@ class CheckboxButtons(ttk.Frame, Generic[T]):
         self.options = options
         self.vars = {option: tk.BooleanVar(value=False) for option in options}
 
+        self._buttons = []
+
         for i, (option, var) in enumerate(self.vars.items(), 0):
             button = ttk.Checkbutton(self, text=option, variable=var)
             button.grid(row=0, column=i, sticky="ew")
+            self._buttons.append(button)
 
     def value(self) -> list[T]:
         return [self.options[option] for option, var in self.vars.items() if var.get()]
 
     def disable(self):
-        for child in self.winfo_children():
-            child.config(state=tk.DISABLED)
+        for button in self._buttons:
+            button.config(state=tk.DISABLED)
 
     def enable(self):
-        for child in self.winfo_children():
-            child.config(state=tk.NORMAL)
+        for button in self._buttons:
+            button.config(state=tk.NORMAL)
 
 
 class FileSelect(ttk.Frame):
@@ -69,12 +71,12 @@ class FileSelect(ttk.Frame):
             self.var.set(str(Path(result)))
 
     def disable(self):
-        for child in self.winfo_children():
-            child.config(state=tk.DISABLED)
+        self.button.config(state=tk.DISABLED)
+        self.field.config(state=tk.DISABLED)
 
     def enable(self):
-        for child in self.winfo_children():
-            child.config(state=tk.NORMAL)
+        self.button.config(state=tk.NORMAL)
+        self.field.config(state=tk.NORMAL)
 
 
 class ScrolledTextLog(ttk.Frame):
@@ -93,7 +95,7 @@ class ScrolledTextLog(ttk.Frame):
         self.canvas.bind("<Button-5>", self.on_mousewheel)
 
         self.scroll_frame = ttk.Frame(self.canvas)
-        self.scroll_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        self.scroll_frame.bind("<Configure>", self._config_canvas)
 
         self.canvas.create_window((0, 0), window=self.scroll_frame, anchor="nw")
         self.canvas.configure(yscrollcommand=self.scrollbar_y.set, xscrollcommand=self.scrollbar_x.set)
@@ -118,3 +120,6 @@ class ScrolledTextLog(ttk.Frame):
         # self.insert("end", f"{message}\n")
         # self.see("end")
         # self.configure(state=tk.DISABLED)
+
+    def _config_canvas(self, _):
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))

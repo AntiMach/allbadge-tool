@@ -1,4 +1,5 @@
-from allbadge_tool.__main__ import main
+from allbadge_tool.main.gui import ProgramGUI
+
 
 if __name__ == "__main__":
-    main()
+    ProgramGUI().mainloop()

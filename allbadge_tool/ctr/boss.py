@@ -5,7 +5,7 @@ from Crypto.Util import Counter
 
 @dataclass(slots=True)
 class BOSS:
-    counter: bytes
+    counter: int
     encrypted_data: bytes
 
     @classmethod
