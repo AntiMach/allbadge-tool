@@ -4,12 +4,14 @@
 
 This thread will guide you through on how to get any official badge you could possibly think of, and also how to group each badge into sets.
 
+**NOTE**: Nintendo's servers have officially "shutdown" as of the 8/4/2024 and the downloading part of Allbadge Tool may stop working any day since it still relies on said servers. Replacing the links with mirrors that lead to the same files could be a way to go, but until the servers are fully down, we'll have to wait.
+
 ## Setup
 
 Before starting, you're going to need a few things:
 
 - [A modded 3DS with boot9strap](https://3ds.hacks.guide/)
-- [Simple Badge Injector (CIA)](https://github.com/AntiMach/simple-badge-injector/releases/latest)
+- [Simple Badge Injector](https://github.com/AntiMach/simple-badge-injector/releases/latest)
 - [Allbadge Tool](https://github.com/AntiMach/allbadge-tool/releases/latest)
 - [Advanced Badge Editor](https://github.com/AntiMach/advanced-badge-editor/releases/latest)
 - A way to read your SD card
@@ -20,7 +22,6 @@ This guide assumes the following:
 
 - You followed the [3ds.hacks.guide](https://3ds.hacks.guide/) step by step to mod your 3ds, or update your modded 3ds.
 - You know some basic understanding of transferring files from your 3DS's SD card to your PC and vice versa.
-- Your 3DS has a Nintendo Network account associated (despite it possibly not being needed).
 
 ## Getting the arm9 bootrom
 
@@ -67,31 +68,15 @@ With this step done, we now have all the badges.
   With this step done, we now have ALL the badges (specially if you extracted the Japanese sarc).
 </details>
 
-## Installing Simple Badge Injector and knowing your NNID
-
-To inject any badges, you will need to know your **NNID**.
-
-- Move the `SimpleBadgeInjector.cia` to your SD card
-- Boot your 3DS with the SD card inside
-- Open `FBI`
-- Install the `SimpleBadgeInjector.cia`
-- Close `FBI`
-- Open `Simple Badge Injector`
-- Your NNID should be displayed, take note of it on your PC
-- You can shutdown your 3DS
-
-Preparations are complete, let's get these badges.
-
 ## Creating badge data
 
 To actually import the extracted badges, you will need to use **Advanced Badge Editor**.
 
 - Open `Advanced_badge_editor.exe`
 - Go to `File` > `New data`
-- Type your NNID in the respective field
+- Go to `Import` > `Entire set data (*.prb and *.cab)`
     - An alternative to this process could involve using the **Simple Badge Injector** to dump your own `BadgeData.dat` and `BadgeMngFile.dat` files
     - In that case, use `File` > `Open data` and select the folder where those files are
-- Go to `Import` > `Entire set data (*.prb and *.cab)`
 - Select the set's `.cab` file
 - Select the set's `.prb` files (you can select multiple)
 - Click `255 of each badge` for essentially all the badges you need
@@ -101,19 +86,24 @@ To actually import the extracted badges, you will need to use **Advanced Badge E
 
 Now you should now have seemling legit `BadgeData.dat` and `BadgeMngFile.dat` files.
 
-## Injecting the badge data
+## Installing Simple Badge Injector and injecting the data
 
 Finally, to use your badges, you're going to need to inject them.
 
+- Move the `SimpleBadgeInjector.cia` to anywhere on your SD card
 - Move the `BadgeData.dat` and `BadgeMngFile.dat` files to `/3ds/SimpleBadgeInjector` relative to the SD card's root
-- Open `Simple Badge Injector` on your 3DS
+    - If the folder doesn't exist, make sure to create it and name it exactly the same!
+- Boot your 3DS with the SD card inside
+- Open `FBI`
+- Install the `SimpleBadgeInjector.cia`
+- Close `FBI`
+- Open `Simple Badge Injector`
 - Select `Dump badge data`. This will backup any badge data you might have *(optional)*
-- Select `Create ExtData archive 0x14D1` and press `A`
-- Select `Inject custom badge data` and press `A`
-    - In case any unexpected errors occur, please report them to me
+- Select `Inject badge data` and press `A`
+    - In case any errors occur, please report them to me
 - Return to the home menu
 
-You should now have injected a generous amount of official badges!
+You should now have access to a generous amount of official badges!
 
 ## Credits
 

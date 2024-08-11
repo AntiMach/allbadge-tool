@@ -1,0 +1,284 @@
+[SIZE=24px][B]Video Guide (slightly outdated)[/B][/SIZE]
+[hr][/hr]
+[MEDIA=youtube]ctdzwogcESk[/MEDIA]
+
+
+[SIZE=24px][B]Introduction[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]This thread will guide you through on how to get any official badge you could possibly think of, and also how to group each badge into sets.
+
+[B]NOTE[/B]: Nintendo's servers have officially "shutdown" as of the 8/4/2024 and the downloading part of Allbadge Tool may stop working any day since it still relies on said servers. Replacing the links with mirrors that lead to the same files could be a way to go, but until the servers are fully down, we'll have to wait.[/SIZE]
+
+[SIZE=24px][B]Setup[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]Before starting, you're going to need a few things:[/SIZE]
+[LIST]
+[*][SIZE=16px][URL='https://3ds.hacks.guide/']A modded 3DS with boot9strap[/URL][/SIZE]
+[*][SIZE=16px][URL='https://github.com/AntiMach/simple-badge-injector/releases/latest']Simple Badge Injector[/URL][/SIZE]
+[*][SIZE=16px][URL='https://github.com/AntiMach/allbadge-tool/releases/latest']Allbadge Tool[/URL][/SIZE]
+[*][SIZE=16px][URL='https://github.com/AntiMach/advanced-badge-editor/releases/latest']Advanced Badge Editor[/URL][/SIZE]
+[*][SIZE=16px]A way to read your SD card[/SIZE]
+[/LIST]
+
+[SIZE=24px][B]Assumptions[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]This guide assumes the following:[/SIZE]
+[LIST]
+[*][SIZE=16px]You followed the [URL='https://3ds.hacks.guide/']3ds.hacks.guide[/URL] step by step to mod your 3ds, or update your modded 3ds.[/SIZE]
+[*][SIZE=16px]You know some basic understanding of transferring files from your 3DS's SD card to your PC and vice versa.[/SIZE]
+[/LIST]
+
+[SIZE=24px][B]Getting the arm9 bootrom[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]This will be needed for the allbadge tool, as it is required for decrypting some files.[/SIZE]
+[LIST]
+[*][SIZE=16px]Boot your 3DS holding [icode]Start[/icode]. This should open [B]GodMode9[/B][/SIZE]
+[*][SIZE=16px]Move to [icode][M:] MEMORY VIRTUAL[/icode] and press [icode]A[/icode][/SIZE]
+[*][SIZE=16px]Move to [icode]boot9.bin[/icode] and press [icode]A[/icode][/SIZE]
+[*][SIZE=16px]Move to [icode]Copy to 0:/gm9/out[/icode] and press [icode]A[/icode][/SIZE]
+[*][SIZE=16px]While holding [icode]R[/icode], press [icode]Start[/icode] to turn your 3DS off[/SIZE]
+[/LIST]
+[SIZE=16px]Your [icode]boot9.bin[/icode] file should now be on your SD card inside of [icode]/gm9/out[/icode].[/SIZE]
+
+[SIZE=24px][B]Getting the badges[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]Having obtained the arm9 bootrom, you can now use the [B]Allbadge Tool[/B].[/SIZE]
+[LIST]
+[*][SIZE=16px]Make sure your [icode]boot9.bin[/icode] is in the same folder as [icode]allbadge_tool.exe[/icode][/SIZE]
+[*][SIZE=16px]Open [icode]allbadge_tool.exe[/icode][/SIZE]
+[*][SIZE=16px]Select the versions you wish to download [icode]ex.: EUR v131[/icode][/SIZE]
+[*][SIZE=16px]Click the begin button[/SIZE]
+[LIST]
+[*][SIZE=16px]Wait until everything is done[/SIZE]
+[*][SIZE=16px]If any error occurs, make sure to read what the error says. If it's something you can solve manually, do it so. Report any other weird errors to me[/SIZE]
+[/LIST]
+[*][SIZE=16px]Once done, you should have zip files for the badges you want inside a [icode]data[/icode] folder[/SIZE]
+[*][SIZE=16px]You may want to extract the folders for the sets you want[/SIZE]
+[/LIST]
+[SIZE=16px]With this step done, we now have all the badges.[/SIZE]
+
+[spoiler="EXTRA: Getting badge data from the Nintendo Badge Arcade updates"]
+[SIZE=16px]  This is not usually needed, but may include badges that are otherwise missing on the other files.[/SIZE]
+[LIST]
+[*][SIZE=16px][SIZE=16px]Move [URL='https://github.com/AntiMach/allbadge-tool/releases/tag/gm9script']this GodMode9 script[/URL] to the [icode]/gm9/scripts[/icode] folder on your SD card[/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Boot your 3DS holding [icode]Start[/icode]. This should open [B]GodMode9[/B][/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Press the [icode]HOME[/icode] button[/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Nagivate to [icode]Scripts...[/icode] > [icode]BadgeExtractTool[/icode][/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Select the desired options from here[/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Select [icode]Exit[/icode] and press [icode]A[/icode] once you're done[/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]While holding [icode]R[/icode], press [icode]Start[/icode] to turn your 3DS off[/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Take any [icode]pc_REGION.sarc[/icode] file from the [icode]/gm9/out[/icode] folder on your SD card and move them to the [icode]data[/icode] folder of the [B]Allbadge Tool[/B][/SIZE][/SIZE]
+[*][SIZE=16px][SIZE=16px]Running the [B]Allbadge Tool[/B], you can now make use of the [icode]pc REGION[/icode] options to extract their contents[/SIZE][/SIZE]
+[/LIST]
+[SIZE=16px]With this step done, we now have ALL the badges (specially if you extracted the Japanese sarc).[/SIZE]
+[/spoiler]
+
+[SIZE=24px][B]Creating badge data[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]To actually import the extracted badges, you will need to use [B]Advanced Badge Editor[/B].[/SIZE]
+[LIST]
+[*][SIZE=16px]Open [icode]Advanced_badge_editor.exe[/icode][/SIZE]
+[*][SIZE=16px]Go to [icode]File[/icode] > [icode]New data[/icode][/SIZE]
+[*][SIZE=16px]Go to [icode]Import[/icode] > [icode]Entire set data (*.prb and *.cab)[/icode][/SIZE]
+[LIST]
+[*][SIZE=16px]An alternative to this process could involve using the [B]Simple Badge Injector[/B] to dump your own [icode]BadgeData.dat[/icode] and [icode]BadgeMngFile.dat[/icode] files[/SIZE]
+[*][SIZE=16px]In that case, use [icode]File[/icode] > [icode]Open data[/icode] and select the folder where those files are[/SIZE]
+[/LIST]
+[*][SIZE=16px]Select the set's [icode].cab[/icode] file[/SIZE]
+[*][SIZE=16px]Select the set's [icode].prb[/icode] files (you can select multiple)[/SIZE]
+[*][SIZE=16px]Click [icode]255 of each badge[/icode] for essentially all the badges you need[/SIZE]
+[*][SIZE=16px]Go to [icode]File[/icode] > [icode]Save data to...[/icode][/SIZE]
+[*][SIZE=16px]Select a folder to save the badge files to[/SIZE]
+[*][SIZE=16px]You can close the app[/SIZE]
+[/LIST]
+[SIZE=16px]Now you should now have seemling legit [icode]BadgeData.dat[/icode] and [icode]BadgeMngFile.dat[/icode] files.[/SIZE]
+
+[SIZE=24px][B]Installing Simple Badge Injector and injecting the data[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]Finally, to use your badges, you're going to need to inject them.[/SIZE]
+[LIST]
+[*][SIZE=16px]Move the [icode]SimpleBadgeInjector.cia[/icode] to anywhere on your SD card[/SIZE]
+[*][SIZE=16px]Move the [icode]BadgeData.dat[/icode] and [icode]BadgeMngFile.dat[/icode] files to [icode]/3ds/SimpleBadgeInjector[/icode] relative to the SD card's root[/SIZE]
+[LIST]
+[*][SIZE=16px]If the folder doesn't exist, make sure to create it and name it exactly the same![/SIZE]
+[/LIST]
+[*][SIZE=16px]Boot your 3DS with the SD card inside[/SIZE]
+[*][SIZE=16px]Open [icode]FBI[/icode][/SIZE]
+[*][SIZE=16px]Install the [icode]SimpleBadgeInjector.cia[/icode][/SIZE]
+[*][SIZE=16px]Close [icode]FBI[/icode][/SIZE]
+[*][SIZE=16px]Open [icode]Simple Badge Injector[/icode][/SIZE]
+[*][SIZE=16px]Select [icode]Dump badge data[/icode]. This will backup any badge data you might have [I](optional)[/I][/SIZE]
+[*][SIZE=16px]Select [icode]Inject badge data[/icode] and press [icode]A[/icode][/SIZE]
+[LIST]
+[*][SIZE=16px]In case any unexpected errors occur, please report them to me[/SIZE]
+[/LIST]
+[/LIST]
+[SIZE=16px]You should now have injected a generous amount of official badges![/SIZE]
+
+[SIZE=24px][B]Credits[/B][/SIZE]
+[hr][/hr]
+[SIZE=16px]This guide would not have been possible without a lot of research done by other people:[/SIZE]
+[LIST]
+[*][SIZE=16px][URL='https://www.3dbrew.org/']3DBrew[/URL] for documenting most of data I had to deal with[/SIZE]
+[*][SIZE=16px][URL='https://wiki.tockdom.com/']Custom Mario Kart Wiki[/URL] for having information on Yaz0 compressed files[/SIZE]
+[*][SIZE=16px][URL='https://github.com/SciresM/BadgeArcadeTool']SciresM's BadgeArcadeTool[/URL] for code on reading and extracting [icode]SARC[/icode] archives[/SIZE]
+[*][SIZE=16px][URL='https://github.com/yellows8/boot9_tools']yellows8's boot9_tools[/URL] for having a lot of information on the ARM9 Bootrom's AES keys[/SIZE]
+[/LIST]
+[SIZE=16px]Please report any issues here, or on [URL='https://github.com/AntiMach/allbadge-tool']this repository[/URL]![/SIZE]
+
+
+
+[spoiler=Outdated tutorial here]
+[CENTER][SIZE=7]Introduction[/SIZE][/CENTER]
+This thread will guide you through on how to get ANY OFFICIAL badge you could possible think of, and also how to group each badge into sets!
+
+[CENTER][SIZE=7]Setup[/SIZE][/CENTER]
+Before starting, you will need a few things:
+[LIST]
+[*]Nintendo Badge Arcade. (optional)
+[*][URL='https://3ds.guide/']A 3DS system with CFW[/URL] (Preferably with Boot9strap)
+[*][URL='https://github.com/d0k3/GodMode9/releases/tag/v1.2.7']GodMode9 v1.2.7[/URL] (Read the "Quick start guide". aeskeydb.bin, seeddb.bin and encTitlekeys.bin are not needed)
+[*][URL='http://www.mediafire.com/file/qt2jvatbb0pvell/Tool_Pack.zip']A Tool Pack I made for this guide[/URL]
+[*]Nintendo Badge Arcade's latest update installed or as CIA. (optional)
+[*]An SD card reader
+[/LIST]
+[SIZE=3]Make sure that you have GodMode9.firm inside the "luma/payloads" folder on your SD card, and that you have FBI installed![/SIZE]
+
+[CENTER][SIZE=3][SIZE=7]Get the official badge data and get the arm9 bootrom file[/SIZE][/SIZE][/CENTER]
+This is the first thing you will need to do if you want to get anything at all.
+[LIST]
+[*]Boot your 3DS while holding [B]Start[/B] + [B]Select[/B] +[B] X[/B]. (you need to stop holding them if you want to boot normally)
+[*]Turn your 3DS off.
+[*]Un-zip the Tool Pack.zip you downloaded.
+[*]Run "download data.bat" and select the data you want to download. (the data will be downloaded to the "gm9" folder)
+[LIST]
+[*]If you want every single badge, then download the Japanese badge data. (They have all the badges -.-)
+[/LIST]
+[*]Insert your 3DS's SD card in your computer.
+[*]Copy the [B]boot9.bin[/B] file from the [B]boot9strap[/B] folder on the root of your SD card to the [B]Tool Pack[/B] folder.
+[/LIST]
+There exists some extra badge data, but that is located inside of the Nintendo Badge Arcade files. This part is optional, and you can do it after downloading the BOSS encrypted ("allbadge_[VERSION]_[REGION].sarc") files:
+[LIST]
+[*]Copy the [B]gm9[/B] folder from the [B]Tool Pack[/B] folder to the root of your SD card.
+[*]Insert your SD card back in your 3DS and boot your 3DS while holding [B]Start[/B].
+[*]If you have the CIA file of the latest [B]Nintendo Badge Arcade update[/B]:
+[LIST]
+[*]Make sure the CIA file is inside the [B]gm9[/B] folder (on your SD card) and that it's named [B]NBA Update [REGION].cia[/B] (replace [B][REGION][/B] with the region of the CIA)
+[*]Boot your 3DS while holding start to launch GodMode9
+[*]Press the Home button
+[*]Select the following options: [B]More... > Scripts... > BadgeData CIA [REGION][/B] (select the one with the region of the CIA)
+[/LIST]
+[*]If you have the latest [B]Nintendo Badge Arcade update[/B]installed:
+[LIST]
+[*]Boot your 3DS while holding start to launch GodMode9
+[*]Press the Home button
+[*]Select the following options: [B]More... > Scripts... > BadgeData Title [REGION][/B] (select the one with the region of the installed title, usually the region of your console)
+[/LIST]
+[*]Turn off your 3DS by holding R + Start.
+[*]Insert your 3DS's SD card back into your computer.
+[/LIST]
+[CENTER][SIZE=7]Extract and decompress the compressed badges and sets[/SIZE][/CENTER]
+Now that you have the encrypted boss files ([B]allbadge_[VERSION]_[REGION].dat[/B]) (and optionally, the [B]badge_data_[REGION].sarc[/B], which isn't BOSS encrypted), you will have to decrypt the boss encrypted files and extract the badges and sets within them:
+[LIST]
+[*]Move the [B]badge_data_[REGION].sarc[/B] (if you have it) file from the [B]gm9[/B] folder on your SD card to the [B]Tool Pack[/B] folder on your computer.
+[*]Run the [B]extract badge data.bat[/B] batch file inside [B]Tool Pack[/B]
+[*]You should now have all of the badge data!
+[*]Additional information:
+[LIST]
+[*]The badge data was extracted to the [B]decompressed[/B] folder.
+[*]The badges and set files are located in their respective set folder.
+[*][URL='https://pastebin.com/fKUbtAK2']This Pastebin[/URL] has the names of all of the sets you can get from the European and American data (The Japanese data has more badges and sets)
+[/LIST]
+[/LIST]
+[CENTER][SIZE=7]Edit it your own badge data (for the users that have badges, either from Nintendo Badge Arcade or customized)[/SIZE][/CENTER]
+Now that you have the decompressed badges and sets, you might want to add some to your own badge data. But first, you will need to extract it...
+[LIST]
+[*]Insert your SD card back in your 3DS and boot it up normally.
+[*]Launch [B]FBI[/B]
+[*]Go to [B]TitleDB[/B] and look for [B]Simple Badge Injector[/B]. Install it.
+[LIST]
+[*]If for some reason you can't install it, then install it with the [B]SimpleBadgeInjector.cia[/B] inside of the [B]Tool Pack[/B] folder.
+[/LIST]
+[*]Exit [B]FBI[/B]
+[*]Launch [B]Simple Badge Injector[/B]
+[*]Select the [B]Dump badge data[/B] option, and wait...
+[*]Exit the app
+[*]Shutdown your 3DS and insert the SD card back into your computer.
+[*]Inside of the [B]Tool Pack[/B], open [B]Advanced badge editor[/B]
+[*]Select [B]File > Open data[/B]. Next, browse for your badge files folder (Select [B]This PC > <Your SD card> > Dumped Badge Files[/B])
+[*]Repeat the following steps to add new sets:
+[LIST]
+[*]Select [B]Import > Entire set data (*.prb and *.cab)[/B]
+[*]Open the [B]decompressed[/B] folder and choose a set folder.
+[*]Select the set file inside of the set folder.
+[*]Select all of the badges inside of that set folder.
+[/LIST]
+[*]You can give yourself 255 of each badge by clicking the [B]255 of each badge[/B] button
+[*]Select [B]File > Save data to...[/B] and navigate to the root of your SD card and create a new folder called [B]Badge Files[/B] (if it doesn't exist). Select it and click ok
+[*]Close [B]Advanced badge editor[/B] and insert your SD card back into your 3DS
+[*]Boot your 3DS.
+[*]Launch [B]Simple Badge Injector[/B]
+[*]Select the [B]Inject custom badge data[/B] option, and wait...
+[*]Exit the app
+[*]Enjoy your new badges ;)
+[/LIST]
+
+[CENTER][SIZE=7]Create badge data (for the users that [B]never[/B] used Nintendo Badge Arcade and don't have badges)[/SIZE][/CENTER]
+This will let you create your own badge data without needing Nintendo Badge Arcade
+[LIST]
+[*]Inside of the [B]Tool Pack[/B], open [B]Advanced badge editor[/B]
+[*]Next, select [B]File > New Data[/B]. You will now have to find your [B]NNID[/B] if you want your badge data to work (which is explained here).
+[*]Insert your SD card back in your 3DS and boot it up normally.
+[*]Launch [B]FBI[/B]
+[*]Go to [B]TitleDB[/B] and look for [B]Simple Badge Injector[/B]. Install it.
+[LIST]
+[*]If for some reason you can't install it, then install it with the [B]SimpleBadgeInjector.cia[/B] inside of the [B]Tool Pack[/B] folder.
+[/LIST]
+[*]Exit [B]FBI[/B]
+[*]Launch [B]Simple Badge Injector[/B]
+[*]Copy the [B]NNID[/B] number that is displayed on your 3DS to the [B]NNID[/B] box in the [B]Advanced badge editor[/B] application.
+[*]Exit the [B]Simple Badge Injector[/B] app
+[*]Shutdown your 3DS and insert the SD card back into your computer.
+[*]Repeat the following steps to add new sets:
+[LIST]
+[*]Select [B]Import > Entire set data (*.prb and *.cab)[/B]
+[*]Open the [B]decompressed[/B] folder and choose a set folder.
+[*]Select the set file inside of the set folder.
+[*]Select all of the badges inside of that set folder.
+[/LIST]
+[*]You can give yourself 255 of each badge by clicking the [B]255 of each badge[/B] button
+[*]Select [B]File > Save data[/B] and navigate to the root of your SD card and create a new folder called [B]Badge Files[/B] (if it doesn't exist). Select it and click "Ok"
+[*]Close [B]Advanced badge editor[/B] and insert your SD card back into your 3DS
+[*]Boot your 3DS.
+[*]Launch [B]Simple Badge Injector[/B]
+[*]Select the [B]Create ExtData archive 0x14D1[/B] option, and wait...
+[*]Select the [B]Inject custom badge data[/B] option, and wait...
+[*]Exit the app
+[*]Enjoy your new badges ;)
+[/LIST]
+[CENTER][SIZE=7]Credits[/SIZE][/CENTER]
+[SIZE=7][SIZE=3]Here comes the part that everyone loves! Right?[/SIZE][/SIZE]
+[LIST]
+[*]Information about *.prb and *.cab files and links to the badge data files - [USER=356903]@redunka[/USER]
+[*]CTRAesEngine and SARC.cs (used to make BadgeExtract) - [USER=347030]@SciresM[/USER]
+[*]BadgeExtract - [USER=404064]@TheMachinumps[/USER]
+[*][URL='https://gbatemp.net/threads/advanced-badge-editor-create-your-own-badges-and-sets-easily.448520/']Advanced Badge Editor V1.3.1[/URL] - The one and only, [USER=404064]@TheMachinumps[/USER]
+[*][URL='https://github.com/TheMachinumps/Simple_badge_injector']Simple Badge Injector[/URL] - Once again, [USER=404064]@TheMachinumps[/USER]
+[*][URL='https://github.com/Steveice10/FBI']FBI[/URL] - [USER=188383]@Steveice10[/USER]
+[*][URL='https://github.com/d0k3/GodMode9/']GodMode9[/URL] - dok3 (on GitHub)
+[/LIST]
+[CENTER][SIZE=7]Help[/SIZE][/CENTER]
+Have any questions? Just ask me, and I will try to answer them =)
+
+You cannot get banned by getting official badges this way (at least I don't think having them effects you in any way, I might be wrong though). If you get banned, that might be because you were caught using unauthorized software, in which case I recommend you use Luma3DS's (if you have it of course) "masking" feature to load Homebrew Launcher with a system application and also using the 3DSX version of the "Simple Badge Injector". (you need to patch the "SM" process using Rosalina (if you have Luma3DS) if you want to know what your NNID is).
+
+Oh, and I discovered that you can only place up to 360 badges, and no more, on the Home Menu (with folders included)...
+
+If you have succeeded in getting any badge you wanted, then take a screenshot and share it here =P (Just for fun)
+
+[spoiler=̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿]
+[ATTACH type="full" alt="yey.png"]91948[/ATTACH]
+[/spoiler]
+
+[SIZE=1]I hope this isn't illegal -.-[/SIZE]
+[/spoiler]
